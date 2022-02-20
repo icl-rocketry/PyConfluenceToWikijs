@@ -20,13 +20,34 @@ class Page:
         Function used to generate the new file name used for export
 
         Adds a new key to the provided dictionary, such that the change can be kept track of
+
+        Returns the new filename
         '''
 
         # Generate a nice file name from the title
         self.new_filename = self._format_filename(str(self.title))
 
         # Add conversion to dictionary so that it can be kept track of
-        filename_dict[self.filename] = self.new_filename
+        filename_dict[os.path.splitext(self.filename)[0]] = self.new_filename
+
+        return self.new_filename
+
+
+    def convert_location(self, filename_dict):
+        '''
+        Convert the folder names within the location list to the new names, to keep it consistent
+        Save new directory location to the class
+        '''
+        self.new_location = list()
+
+        for folder in self.location[1:]: # We dont care about the first item, as it is the root
+            # Convert the folder name if the corresponding name has also been converted, otherwise Just add the old one
+            if folder in filename_dict:
+                self.new_location.append(filename_dict[folder])
+            else:
+                self.new_location.append(folder)
+        
+        return self.new_location
 
 
     def export_to_folder(self, destination_folder):
@@ -37,7 +58,6 @@ class Page:
         Takes a single argument, the destination folder. Creates folders as neccessary within that
         folder such as to emulate the previous hierarchy.
         '''
-
 
 
     def _import_from_file(self, wiki_name):
