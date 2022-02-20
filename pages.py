@@ -1,4 +1,4 @@
-from html.parser import HTMLParser
+from bs4 import BeautifulSoup
 
 class Page:
     """
@@ -22,16 +22,11 @@ class Page:
         file_data = file.read()
         file.close()
 
-        parser = PageParser()
-        parser.feed(file_data)
+        html_data = BeautifulSoup(file_data, 'html.parser')
+        print(html_data.title)
 
         self.title = ""
         self.location = "" # Location within the hierarchy
         self._content = "" # The actual content of the page
         self._update_text = ""
         self.image_folder = ""
-
-class PageParser(HTMLParser):
-    '''
-    Class to parse the HTML from a page and convert it into code
-    '''
