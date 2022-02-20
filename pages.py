@@ -23,10 +23,20 @@ class Page:
         file.close()
 
         html_data = BeautifulSoup(file_data, 'html.parser')
-        print(html_data.title)
 
-        self.title = ""
-        self.location = "" # Location within the hierarchy
-        self._content = "" # The actual content of the page
-        self._update_text = ""
-        self.image_folder = ""
+        self.title = html_data.title
+
+        # Location within the hierarchy stored as list of names, going from root down
+        self.location = list() 
+
+        # Parse the breadcumbs section for the correct hierarchy
+        hierarchy_section = html_data.find("ol", id="breadcrumbs")
+        for item in hierarchy_section.find_all("li"):
+            link_text = item.find("a").get("href")
+            self.location.append(link_text[:-5]) # Strip the .html extension
+
+        self._content = html_data.find("div", class_="wiki-content group",id="main-content")
+
+        self._update_text = html_data.find("div", class_ = "page-metadata")
+
+        self.id = file_name[-14:-5] # Get only the 9 digit ID at the end of the filename before the extension
