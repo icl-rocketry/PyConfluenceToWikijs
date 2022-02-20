@@ -1,4 +1,4 @@
-class WikiPage:
+class Page:
     """
     Class to store and process a single wiki page.
 
@@ -9,6 +9,7 @@ class WikiPage:
     
     def __init__(self, file_name):
         self.file_name = file_name
+        self._import_from_file(self.file_name)
 
     def _import_from_file(self, file_name):
         '''
