@@ -10,3 +10,5 @@ Planned features:
  - Working links between pages
  - Working and organised images
  - Either automatically transferred page attachments, or at least simplified
+
+[Documented here](https://wiki.imperial.ac.uk/display/IRW/Confluence+to+Wiki.js+Conversion) (on old wiki for now!)
