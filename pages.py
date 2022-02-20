@@ -11,43 +11,37 @@ class Page:
     correct files.
     """
     
-    def __init__(self, filename, wiki_name):
-        self.filename = filename
-        self._import_from_file(wiki_name)
+    def __init__(self, path, wiki_name):
+        self.filename = os.path.split(path)[1]
+        self._import_from_file(path, wiki_name)
 
-    def convert_filename(self, filename_dict):
+    def convert_filename(self):
         '''
         Function used to generate the new file name used for export
-
-        Adds a new key to the provided dictionary, such that the change can be kept track of
 
         Returns the new filename
         '''
 
         # Generate a nice file name from the title
-        self.new_filename = self._format_filename(str(self.title))
+        new_filename = self._format_filename(str(self.title))
 
-        # Add conversion to dictionary so that it can be kept track of
-        filename_dict[os.path.splitext(self.filename)[0]] = self.new_filename
-
-        return self.new_filename
+        return new_filename
 
 
     def convert_location(self, filename_dict):
         '''
         Convert the folder names within the location list to the new names, to keep it consistent
-        Save new directory location to the class
         '''
-        self.new_location = list()
+        new_location = list()
 
         for folder in self.location[1:]: # We dont care about the first item, as it is the root
             # Convert the folder name if the corresponding name has also been converted, otherwise Just add the old one
             if folder in filename_dict:
-                self.new_location.append(filename_dict[folder])
+                new_location.append(filename_dict[folder])
             else:
-                self.new_location.append(folder)
+                new_location.append(folder)
         
-        return self.new_location
+        return new_location
 
 
     def export_to_folder(self, destination_folder):
@@ -60,12 +54,12 @@ class Page:
         '''
 
 
-    def _import_from_file(self, wiki_name):
+    def _import_from_file(self, filename, wiki_name):
         '''
         Function that imports the data from the classes file into the class, by parsing the html
         '''
 
-        file = open(self.filename, 'r')
+        file = open(filename, 'r')
         file_data = file.read()
         file.close()
 
@@ -86,9 +80,9 @@ class Page:
 
         self._content = html_data.find("div", class_="wiki-content group",id="main-content")
 
-        self._update_text = html_data.find("div", class_ = "page-metadata").string
+        self._metadata = html_data.find("div", class_ = "page-metadata").string
 
-        self.id = os.path.splitext(self.filename)[0][-9:] # Get only the 9 digit ID at the end of the filename before the extension
+        self.id = os.path.splitext(filename)[0][-9:] # Get only the 9 digit ID at the end of the filename before the extension
 
 
     @staticmethod
