@@ -29,6 +29,14 @@ class Wiki:
                                             self.filename_dict[os.path.splitext(page.filename)[0]] + self.ext))
 
 
+    def export_pages(self, output_dir):
+        '''
+        Export all the pages to the provided directory
+        '''
+        for page in self.pages:
+            page.export(self.path_dict[page.filename], output_dir)
+
+
     def _import_pages(self, input_folder):
         '''
         Import all the files from the input folder as pages
