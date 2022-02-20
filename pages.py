@@ -11,11 +11,11 @@ class Page:
     correct files.
     """
     
-    def __init__(self, file_name, wiki_name):
-        self.file_name = file_name
+    def __init__(self, filename, wiki_name):
+        self.filename = filename
         self._import_from_file(wiki_name)
 
-    def convert_file_name(self, file_name_dict):
+    def convert_filename(self, filename_dict):
         '''
         Function used to generate the new file name used for export
 
@@ -23,10 +23,10 @@ class Page:
         '''
 
         # Generate a nice file name from the title
-        self.new_file_name = self._format_filename(str(self.title))
+        self.new_filename = self._format_filename(str(self.title))
 
         # Add conversion to dictionary so that it can be kept track of
-        file_name_dict[self.file_name] = self.new_file_name
+        filename_dict[self.filename] = self.new_filename
 
 
     def export_to_folder(self, destination_folder):
@@ -45,7 +45,7 @@ class Page:
         Function that imports the data from the classes file into the class, by parsing the html
         '''
 
-        file = open(self.file_name, 'r')
+        file = open(self.filename, 'r')
         file_data = file.read()
         file.close()
 
@@ -68,7 +68,7 @@ class Page:
 
         self._update_text = html_data.find("div", class_ = "page-metadata").string
 
-        self.id = os.path.splitext(file_name)[0][-9:] # Get only the 9 digit ID at the end of the filename before the extension
+        self.id = os.path.splitext(self.filename)[0][-9:] # Get only the 9 digit ID at the end of the filename before the extension
 
 
     @staticmethod
