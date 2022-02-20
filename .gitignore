@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# HTML files
+*.html
+
+# testing scripts
+test.py
