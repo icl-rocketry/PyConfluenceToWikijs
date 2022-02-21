@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import string
 import os
 from datetime import datetime
-from distutils.dir_util import copy_tree
+from shutil import copytree
 
 class Page:
     """
@@ -92,7 +92,7 @@ class Page:
         media_origin = os.path.join(self.path, "attachments", self.id)
         if os.path.isdir(media_origin): # Check if there are any attachments
             media_folder = os.path.join(new_dir, "attachments", self.id)
-            copy_tree(media_origin, media_folder)
+            copytree(media_origin, media_folder, dirs_exist_ok=True)
 
 
     def _import_from_file(self, filename, wiki_name):
