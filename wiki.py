@@ -34,7 +34,7 @@ class Wiki:
         Export all the pages to the provided directory
         '''
         for page in self.pages:
-            page.export(self.path_dict[page.filename], output_dir)
+            page.export(self.path_dict[page.filename], output_dir, self.path_dict)
 
 
     def _import_pages(self, input_folder):
