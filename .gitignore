@@ -133,3 +133,4 @@ dmypy.json
 
 # testing scripts
 test.py
+testing/
