@@ -31,7 +31,6 @@ class Wiki:
                                             self.filename_dict[os.path.splitext(page.filename)[0]]
                                             + self.ext)
 
-
     def export_pages(self, output_dir):
         '''
         Export all the pages to the provided directory
@@ -39,13 +38,11 @@ class Wiki:
         for page in self.pages:
             page.export(self.path_dict[page.filename], output_dir, self.path_dict)
 
-
     def _import_pages(self, input_folder):
         '''
         Import all the files from the input folder as pages
         Return list containing all the pages
         '''
-
         page_list = []
         for file_in_dir in os.listdir(input_folder):
             # Store all html files but do not convert index.html,
