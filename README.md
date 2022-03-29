@@ -3,12 +3,14 @@ Python scripts used to convert the Confluence based wiki to a format that is usa
 
 Based loosely on [this tool by gkpln3](https://github.com/gkpln3/ConfluenceToWikiJS), though ported to python, and with enhanced capability.
 
-Planned features:
+Features:
 
- - Preserved page hierarchy
- - Working titles
+ - Preserved page hierarchy, converted to use folders
+ - Files renamed to their title rather than just their ID
  - Working links between pages
- - Working and organised images
- - Either automatically transferred page attachments, or at least simplified
+ - Working images
+ - Working non-image attachments (though no previews)
+ - HTML not formatted as a single line (which is what confluence does by default)
+ - Metadata (page edit times) preserved, and saved to the footer of each page
 
 [Documented here](https://wiki.imperial.ac.uk/display/IRW/Confluence+to+Wiki.js+Conversion) (on old wiki for now!)
