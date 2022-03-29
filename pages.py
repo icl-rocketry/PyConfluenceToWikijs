@@ -64,7 +64,7 @@ class Page:
         os.makedirs(new_dir, exist_ok=True)
 
         # Open the file for writing
-        page_file = open(page_path, 'w', encoding="utf-8")
+        page_file = open(page_path, "w", encoding="utf-8")
 
         # Write header
         # Current date and time in the right format
@@ -89,7 +89,6 @@ class Page:
         page_file.write(f"<p><span class=\"text-tiny\"><i>Old Metadata: {self._metadata}</i></span></p>\n")
         page_file.write(f"<p><span class=\"text-tiny\"><i>ID: {self.id}</i></span></p>\n")
 
-        # Write footer
         page_file.close()
 
         # Move media files to a new media folder
@@ -104,11 +103,11 @@ class Page:
         Function that imports the data from the classes file into the class, by parsing the html
         '''
 
-        file = open(filename, 'r', encoding="utf-8")
+        file = open(filename, "r", encoding="utf-8")
         file_data = file.read()
         file.close()
 
-        html_data = BeautifulSoup(file_data, 'html.parser')
+        html_data = BeautifulSoup(file_data, "html.parser")
 
         # Title is prepended with the name of the wiki, plus a " : "; need to strip it
         title_chars_to_strip = len(wiki_name)+3
@@ -123,7 +122,7 @@ class Page:
             link_text = item.find("a").get("href")
             self.location.append(os.path.splitext(link_text)[0]) # Strip the .html extension
 
-        self._content = html_data.find("div", class_="wiki-content group",id="main-content")
+        self._content = html_data.find("div", class_="wiki-content group",id="main-content").prettify()
 
         self._metadata = html_data.find("div", class_ = "page-metadata").get_text().strip()
 
@@ -141,8 +140,8 @@ class Page:
         Blatantly stolen from this gist: https://gist.github.com/seanh/93666
         '''
         valid_chars = f"-_() {string.ascii_letters}{string.digits}"
-        filename = ''.join(c for c in unformatted_filename if c in valid_chars)
-        filename = filename.replace(' ','_') # I don't like spaces in filenames.
+        filename = "".join(c for c in unformatted_filename if c in valid_chars)
+        filename = filename.replace(" ","_") # I don't like spaces in filenames.
         return filename
 
     @staticmethod
